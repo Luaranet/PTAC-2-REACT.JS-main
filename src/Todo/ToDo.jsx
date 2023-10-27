@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./style.css";
 
 export default function ToDo() {
+    const listaLocalStorage = JSON.parse(localStorage.getItem("Lista"));
+    const [id, setId] = useState(listaLocalStorage[listaLocalStorage.length - 1]?.id + 1 || 1); 
     const [atividade, setAtividade] = useState("");
-    const [lista, setLista] = useState([]);
-    const [id, setId] = useState(1);
+    const [lista, setLista] = useState(listaLocalStorage || []);
+
+    useEffect(()  => {localStorage.setItem("Lista", JSON.stringify(lista))}, [lista]);
 
     const salvar = (e) => {
         e.preventDefault();
