@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import "./style.css";
+import { Link } from "react-router-dom";
 
 export default function ToDo() {
     const listaLocalStorage = JSON.parse(localStorage.getItem("Lista"));
-    const [id, setId] = useState(listaLocalStorage[listaLocalStorage.length - 1]?.id + 1 || 1); 
+    const [id, setId] = useState(listaLocalStorage[listaLocalStorage.length - 1]?.id + 1 || 1);
     const [atividade, setAtividade] = useState("");
     const [lista, setLista] = useState(listaLocalStorage || []);
 
-    useEffect(()  => {localStorage.setItem("Lista", JSON.stringify(lista))}, [lista]);
+    useEffect(() => { localStorage.setItem("Lista", JSON.stringify(lista)) }, [lista]);
 
     const salvar = (e) => {
         e.preventDefault();
@@ -39,7 +40,9 @@ export default function ToDo() {
             {lista.map((ativ) =>
                 <ul key={ativ.id}>
                     <li>
-                        <p>{ativ.atividade}</p>
+                        <Link to={`/detalhe/${ativ.id}`}>                  
+                              <p>{ativ.atividade}</p>
+                        </Link>
                         <button onClick={() => remover(ativ.id)}>Remover</button>
                     </li>
                 </ul>

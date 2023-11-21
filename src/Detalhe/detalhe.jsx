@@ -6,7 +6,7 @@ export default function Detalhe(){
     const { id } = useParams();
     const lista = JSON.parse( localStorage.getItem("Lista"));
 
-    lista.filter( (objeto) => {
+    const atividade = lista.filter( (objeto) => {
         if(objeto.id == id) {
             return objeto;
         }
